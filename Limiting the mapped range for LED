@@ -1,0 +1,10 @@
+  }
+
+  if(response.followedByCount != 0 && ledintensity < 255){
+  InstagramUserStats response = instaStats.getUserStats(userName);
+  int ledintensity = map(response.followedByCount, MinFollowers, MaxFollowers, 255, 0);  
+  ledcWrite(ledChannel, ledintensity);       
+  Serial.print("Led Intensity: ");
+  Serial.println(255-ledintensity);
+   }
+  }
