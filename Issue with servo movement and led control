@@ -1,0 +1,23 @@
+void getInstagramStatsForUser() {
+  Serial.println("Getting instagram user stats for " + userName );
+  InstagramUserStats response = instaStats.getUserStats(userName);
+  Serial.println("Response:");
+  Serial.print("Number of followers: ");
+  Serial.println(response.followedByCount);
+
+  if(response.followedByCount != 0){
+  int servoPosition = map(response.followedByCount, MinFollowers, MaxFollowers, 0, 180);
+  servo1.write(servoPosition);
+  Serial.print("Servo Position: ");
+  Serial.println(servoPosition);
+  }
+
+  if(response.followedByCount != 0 && ledintensity < 255){
+  InstagramUserStats response = instaStats.getUserStats(userName);
+  int ledintensity = map(response.followedByCount, MinFollowers, MaxFollowers, 255, 0);  
+  ledcWrite(ledChannel, ledintensity);       
+  Serial.print("Led Intensity: ");
+  Serial.println(255-ledintensity);
+   }
+  }
+}
